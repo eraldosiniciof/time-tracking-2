@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.49.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <title>Rastreador de Tempo</title>
+  </head>
+  <body onload="onLoad()">
+    <label class="swap swap-rotate" id="svg-theme">
+      <input
+        data-toggle-theme="autumn,dracula"
+        type="checkbox"
+        id="change-theme"
+      />
+
+      <svg
+        class="fill-current w-10 h-10 hidden"
+        viewBox="0 0 24 24"
+        id="svg-light"
+      >
+        <path
+          d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"
+        />
+      </svg>
+
+      <svg
+        class="fill-current w-10 h-10 hidden"
+        viewBox="0 0 24 24"
+        id="svg-dark"
+      >
+        <path
+          d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
+        />
+      </svg>
+    </label>
+
+    <div class="mt-8">
+      <div
+        class="w-3/4 flex flex-col items-center gap-3 justify-between m-auto"
+      >
+        <div class="form-control w-full max-w-xs">
+          <label class="label">
+            <span class="label-text">Descrição</span>
+          </label>
+          <input
+            id="task"
+            type="text"
+            class="input input-bordered w-full max-w-xs"
+          />
+        </div>
+
+        <div class="flex gap-5">
+          <div class="flex gap-2 border-2 px-4 py-2 rounded-lg">
+            <input
+              type="radio"
+              class="radio"
+              value="👨‍💻 Trabalho"
+              id="trabalho"
+              name="categoria"
+            />
+            <label for="trabalho">👨‍💻 Trabalho</label>
+          </div>
+
+          <div class="flex gap-2 border-2 px-4 py-2 rounded-lg">
+            <input
+              type="radio"
+              class="radio"
+              value="🧠 Estudo"
+              id="estudo"
+              name="categoria"
+            />
+            <label for="estudo">🧠 Estudo</label>
+          </div>
+
+          <div class="flex gap-2 border-2 px-4 py-2 rounded-lg">
+            <input
+              type="radio"
+              class="radio"
+              value="🇬🇧 Inglês"
+              id="idioma"
+              name="categoria"
+            />
+            <label for="idioma">🇬🇧 Inglês</label>
+          </div>
+
+          <div class="flex gap-2 border-2 px-4 py-2 rounded-lg">
+            <input
+              type="radio"
+              class="radio"
+              value="🗑 Sem Categoria"
+              id="sem-categoria"
+              name="categoria"
+              checked
+            />
+            <label for="sem-categoria">🗑 Sem Categoria</label>
+          </div>
+        </div>
+        <div class="flex gap-3 w-full items-center justify-center">
+          <button
+            onclick="handleClickAdd()"
+            class="btn btn-outline rounded-full w-64"
+          >
+            Inciar
+          </button>
+          <button
+            onclick="clearStorage()"
+            class="btn btn-outline btn-secondary rounded-full w-64"
+          >
+            Limpar Lista
+          </button>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <!-- <table class="m-10 flex-2"></table> -->
+
+        <div class="overflow-x-auto flex-1 ml-20">
+          <strong>Lista de Tarefas</strong>
+          <table id="task-list"></table>
+        </div>
+
+        <div class="overflow-x-auto px-20 py-4">
+          <strong>Total de Minutos</strong>
+          <table id="resume" class="table"></table>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
+    <script>
+      const tasks = JSON.parse(localStorage.getItem('@time-tracking')) || []
+      const taskList = document.querySelector('#task-list')
+      const tableResume = document.querySelector('#resume')
+
+      function convertTime(time) {
+        let controlTime = time
+        let totalHours = 0
+        let totalMinutes = 0
+
+        while (controlTime >= 60) {
+          console.log('entrou aqui')
+          totalHours += 1
+          controlTime -= 60
+        }
+
+        totalMinutes = controlTime
+
+        return `${totalHours}h ${totalMinutes}m`
+      }
+
+      function pupulateList(array) {
+        for (let i = 0; i < array.length; i += 1) {
+          const buttonElement = document.createElement('button')
+          buttonElement.innerHTML = 'Finalizar'
+          buttonElement.classList.add('btn')
+          buttonElement.classList.add('btn-outline')
+          buttonElement.classList.add('btn-secondary')
+          buttonElement.classList.add('btn-sm')
+
+          buttonElement.id = i + 1
+          buttonElement.onclick = (e) => {
+            const task = array.find((mt) => mt.id === Number(e.target.id))
+            task.finalized_at = new Date().getTime()
+
+            const index = array.findIndex((item) => item.id === array[i].id)
+            array.splice(index, 1, task)
+            localStorage.setItem('@time-tracking', JSON.stringify(tasks))
+
+            taskList.innerHTML = ''
+            tableResume.innerHTML = ''
+            pupulateList(tasks)
+            refreshResume(tasks)
+          }
+
+          if (array[i].finalized_at) {
+            buttonElement.setAttribute('disabled', true)
+          }
+
+          const time = (array[i].finalized_at - array[i].created_at) / 60000
+
+          const textTask = `${array[i].id} - ${array[i].description} - ${
+            array[i].category
+          } - ${
+            array[i].finalized_at
+              ? `${Math.ceil(time)} minutos`
+              : 'Em progresso...'
+          }`
+
+          const table = document.querySelector('table')
+          taskList.classList.add('table')
+          taskList.classList.add('w-full')
+          taskList.classList.add('table-zebra')
+
+          const trElement = document.createElement('tr')
+
+          const thElementId = document.createElement('th')
+          thElementId.innerHTML = array[i].id
+
+          const tdElementDescription = document.createElement('td')
+          tdElementDescription.innerHTML = array[i].description
+
+          const tdElementCategory = document.createElement('td')
+          tdElementCategory.innerHTML = array[i].category
+
+          const tdElementTime = document.createElement('td')
+
+          tdElementTime.innerHTML = array[i].finalized_at
+            ? `${Math.ceil(time)} minutos`
+            : 'Em progresso...'
+
+          const tdElementButton = document.createElement('td')
+          tdElementButton.appendChild(buttonElement)
+
+          trElement.classList.add('border-b-2')
+
+          trElement.appendChild(thElementId)
+          trElement.appendChild(tdElementDescription)
+          trElement.appendChild(tdElementCategory)
+          trElement.appendChild(tdElementTime)
+          trElement.appendChild(tdElementButton)
+          taskList.appendChild(trElement)
+        }
+      }
+
+      const categoryList = document.getElementsByName('categoria')
+
+      function handleClickAdd() {
+        let category
+        categoryList.forEach((cat) => {
+          if (cat.checked) {
+            category = cat.value
+          }
+        })
+
+        const inputTask = document.querySelector('#task')
+
+        if (inputTask.value === '') {
+          window.alert('A descrição está vazia')
+          return
+        }
+
+        const obj = {
+          id: tasks.length + 1,
+          description: inputTask.value.toUpperCase(),
+          created_at: new Date().getTime(),
+          category,
+        }
+
+        tasks.push(obj)
+        localStorage.setItem('@time-tracking', JSON.stringify(tasks))
+
+        taskList.innerHTML = ''
+        inputTask.value = ''
+        pupulateList(tasks)
+      }
+
+      function clearStorage() {
+        const isConfirmed = window.confirm(
+          'Você tem certeza que deseja limpar toda a lista?'
+        )
+
+        if (isConfirmed) {
+          localStorage.removeItem('@time-tracking')
+          window.location.reload()
+        }
+      }
+
+      function refreshResume(tasks) {
+        const categories = tasks
+          .map((t) => t.category)
+          .filter((value, index, self) => self.indexOf(value) === index)
+
+        const resume = categories.map((category) => {
+          const totalMinutes = tasks.reduce(
+            (memo, task) =>
+              task.category === category
+                ? memo +
+                  Math.ceil(
+                    ((task.finalized_at ? task.finalized_at : 0) -
+                      (task.finalized_at ? task.created_at : 0)) /
+                      60000
+                  )
+                : memo,
+            0
+          )
+
+          return {
+            category,
+            total: convertTime(totalMinutes),
+          }
+        })
+
+        resume.forEach((r) => {
+          const trElementResumo = document.createElement('tr')
+          trElementResumo.classList.add('border-b-2')
+
+          const tdElementResumoC = document.createElement('td')
+          tdElementResumoC.classList.add('w-full')
+
+          const tdElementResumoT = document.createElement('td')
+
+          tdElementResumoC.innerHTML = r.category
+          tdElementResumoT.innerHTML = r.total
+          trElementResumo.appendChild(tdElementResumoC)
+          trElementResumo.appendChild(tdElementResumoT)
+
+          tableResume.appendChild(trElementResumo)
+        })
+      }
+
+      refreshResume(tasks)
+      pupulateList(tasks)
+
+      function onLoad() {
+        const theme = localStorage.getItem('theme')
+
+        const svgLight = document.querySelector('#svg-light')
+        const svgDark = document.querySelector('#svg-dark')
+
+        svgDark.classList.remove('hidden')
+        svgLight.classList.remove('hidden')
+
+        if (theme === 'autumn') {
+          svgLight.classList.remove('swap-off')
+          svgDark.classList.remove('swap-on')
+
+          svgLight.classList.add('swap-on')
+          svgDark.classList.add('swap-off')
+        }
+
+        if (theme === 'dracula') {
+          svgDark.classList.remove('swap-off')
+          svgLight.classList.remove('swap-on')
+
+          svgDark.classList.add('swap-on')
+          svgLight.classList.add('swap-off')
+        }
+      }
+    </script>
+  </body>
+</html>
