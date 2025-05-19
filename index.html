@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
+    <meta name="google-adsense-account" content="ca-pub-2016906683193740" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -138,114 +139,114 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/theme-change@2.0.2/index.js"></script>
     <script>
-      const tasks = JSON.parse(localStorage.getItem('@time-tracking')) || []
-      const taskList = document.querySelector('#task-list')
-      const tableResume = document.querySelector('#resume')
+      const tasks = JSON.parse(localStorage.getItem("@time-tracking")) || [];
+      const taskList = document.querySelector("#task-list");
+      const tableResume = document.querySelector("#resume");
 
       function convertTime(time) {
-        let controlTime = time
-        let totalHours = 0
-        let totalMinutes = 0
+        let controlTime = time;
+        let totalHours = 0;
+        let totalMinutes = 0;
 
         while (controlTime >= 60) {
-          totalHours += 1
-          controlTime -= 60
+          totalHours += 1;
+          controlTime -= 60;
         }
 
-        totalMinutes = controlTime
+        totalMinutes = controlTime;
 
-        return `${totalHours}h ${totalMinutes}m`
+        return `${totalHours}h ${totalMinutes}m`;
       }
 
       function pupulateList(array) {
         for (let i = 0; i < array.length; i += 1) {
-          const buttonElement = document.createElement('button')
-          buttonElement.innerHTML = 'Finalizar'
-          buttonElement.classList.add('btn')
-          buttonElement.classList.add('btn-outline')
-          buttonElement.classList.add('btn-secondary')
-          buttonElement.classList.add('btn-sm')
+          const buttonElement = document.createElement("button");
+          buttonElement.innerHTML = "Finalizar";
+          buttonElement.classList.add("btn");
+          buttonElement.classList.add("btn-outline");
+          buttonElement.classList.add("btn-secondary");
+          buttonElement.classList.add("btn-sm");
 
-          buttonElement.id = i + 1
+          buttonElement.id = i + 1;
           buttonElement.onclick = (e) => {
-            const task = array.find((mt) => mt.id === Number(e.target.id))
-            task.finalized_at = new Date().getTime()
+            const task = array.find((mt) => mt.id === Number(e.target.id));
+            task.finalized_at = new Date().getTime();
 
-            const index = array.findIndex((item) => item.id === array[i].id)
-            array.splice(index, 1, task)
-            localStorage.setItem('@time-tracking', JSON.stringify(tasks))
+            const index = array.findIndex((item) => item.id === array[i].id);
+            array.splice(index, 1, task);
+            localStorage.setItem("@time-tracking", JSON.stringify(tasks));
 
-            taskList.innerHTML = ''
-            tableResume.innerHTML = ''
-            pupulateList(tasks)
-            refreshResume(tasks)
-          }
+            taskList.innerHTML = "";
+            tableResume.innerHTML = "";
+            pupulateList(tasks);
+            refreshResume(tasks);
+          };
 
           if (array[i].finalized_at) {
-            buttonElement.setAttribute('disabled', true)
+            buttonElement.setAttribute("disabled", true);
           }
 
-          const time = (array[i].finalized_at - array[i].created_at) / 60000
+          const time = (array[i].finalized_at - array[i].created_at) / 60000;
 
           const textTask = `${array[i].id} - ${array[i].description} - ${
             array[i].category
           } - ${
             array[i].finalized_at
               ? `${Math.ceil(time)} minutos`
-              : 'Em progresso...'
-          }`
+              : "Em progresso..."
+          }`;
 
-          const table = document.querySelector('table')
-          taskList.classList.add('table')
-          taskList.classList.add('w-full')
-          taskList.classList.add('table-zebra')
+          const table = document.querySelector("table");
+          taskList.classList.add("table");
+          taskList.classList.add("w-full");
+          taskList.classList.add("table-zebra");
 
-          const trElement = document.createElement('tr')
+          const trElement = document.createElement("tr");
 
-          const thElementId = document.createElement('th')
-          thElementId.innerHTML = array[i].id
+          const thElementId = document.createElement("th");
+          thElementId.innerHTML = array[i].id;
 
-          const tdElementDescription = document.createElement('td')
-          tdElementDescription.innerHTML = array[i].description
+          const tdElementDescription = document.createElement("td");
+          tdElementDescription.innerHTML = array[i].description;
 
-          const tdElementCategory = document.createElement('td')
-          tdElementCategory.innerHTML = array[i].category
+          const tdElementCategory = document.createElement("td");
+          tdElementCategory.innerHTML = array[i].category;
 
-          const tdElementTime = document.createElement('td')
+          const tdElementTime = document.createElement("td");
 
           tdElementTime.innerHTML = array[i].finalized_at
             ? `${Math.ceil(time)} minutos`
-            : 'Em progresso...'
+            : "Em progresso...";
 
-          const tdElementButton = document.createElement('td')
-          tdElementButton.appendChild(buttonElement)
+          const tdElementButton = document.createElement("td");
+          tdElementButton.appendChild(buttonElement);
 
-          trElement.classList.add('border-b-2')
+          trElement.classList.add("border-b-2");
 
-          trElement.appendChild(thElementId)
-          trElement.appendChild(tdElementDescription)
-          trElement.appendChild(tdElementCategory)
-          trElement.appendChild(tdElementTime)
-          trElement.appendChild(tdElementButton)
-          taskList.appendChild(trElement)
+          trElement.appendChild(thElementId);
+          trElement.appendChild(tdElementDescription);
+          trElement.appendChild(tdElementCategory);
+          trElement.appendChild(tdElementTime);
+          trElement.appendChild(tdElementButton);
+          taskList.appendChild(trElement);
         }
       }
 
-      const categoryList = document.getElementsByName('categoria')
+      const categoryList = document.getElementsByName("categoria");
 
       function handleClickAdd() {
-        let category
+        let category;
         categoryList.forEach((cat) => {
           if (cat.checked) {
-            category = cat.value
+            category = cat.value;
           }
-        })
+        });
 
-        const inputTask = document.querySelector('#task')
+        const inputTask = document.querySelector("#task");
 
-        if (inputTask.value === '') {
-          window.alert('A descrição está vazia')
-          return
+        if (inputTask.value === "") {
+          window.alert("A descrição está vazia");
+          return;
         }
 
         const obj = {
@@ -253,31 +254,31 @@
           description: inputTask.value.toUpperCase(),
           created_at: new Date().getTime(),
           category,
-        }
+        };
 
-        tasks.push(obj)
-        localStorage.setItem('@time-tracking', JSON.stringify(tasks))
+        tasks.push(obj);
+        localStorage.setItem("@time-tracking", JSON.stringify(tasks));
 
-        taskList.innerHTML = ''
-        inputTask.value = ''
-        pupulateList(tasks)
+        taskList.innerHTML = "";
+        inputTask.value = "";
+        pupulateList(tasks);
       }
 
       function clearStorage() {
         const isConfirmed = window.confirm(
-          'Você tem certeza que deseja limpar toda a lista?'
-        )
+          "Você tem certeza que deseja limpar toda a lista?"
+        );
 
         if (isConfirmed) {
-          localStorage.removeItem('@time-tracking')
-          window.location.reload()
+          localStorage.removeItem("@time-tracking");
+          window.location.reload();
         }
       }
 
       function refreshResume(tasks) {
         const categories = tasks
           .map((t) => t.category)
-          .filter((value, index, self) => self.indexOf(value) === index)
+          .filter((value, index, self) => self.indexOf(value) === index);
 
         const resume = categories.map((category) => {
           const totalMinutes = tasks.reduce(
@@ -291,60 +292,65 @@
                   )
                 : memo,
             0
-          )
+          );
 
           return {
             category,
             total: convertTime(totalMinutes),
-          }
-        })
+          };
+        });
 
         resume.forEach((r) => {
-          const trElementResumo = document.createElement('tr')
-          trElementResumo.classList.add('border-b-2')
+          const trElementResumo = document.createElement("tr");
+          trElementResumo.classList.add("border-b-2");
 
-          const tdElementResumoC = document.createElement('td')
-          tdElementResumoC.classList.add('w-full')
+          const tdElementResumoC = document.createElement("td");
+          tdElementResumoC.classList.add("w-full");
 
-          const tdElementResumoT = document.createElement('td')
+          const tdElementResumoT = document.createElement("td");
 
-          tdElementResumoC.innerHTML = r.category
-          tdElementResumoT.innerHTML = r.total
-          trElementResumo.appendChild(tdElementResumoC)
-          trElementResumo.appendChild(tdElementResumoT)
+          tdElementResumoC.innerHTML = r.category;
+          tdElementResumoT.innerHTML = r.total;
+          trElementResumo.appendChild(tdElementResumoC);
+          trElementResumo.appendChild(tdElementResumoT);
 
-          tableResume.appendChild(trElementResumo)
-        })
+          tableResume.appendChild(trElementResumo);
+        });
       }
 
-      refreshResume(tasks)
-      pupulateList(tasks)
+      refreshResume(tasks);
+      pupulateList(tasks);
 
       function onLoad() {
-        const theme = localStorage.getItem('theme')
+        const theme = localStorage.getItem("theme");
 
-        const svgLight = document.querySelector('#svg-light')
-        const svgDark = document.querySelector('#svg-dark')
+        const svgLight = document.querySelector("#svg-light");
+        const svgDark = document.querySelector("#svg-dark");
 
-        svgDark.classList.remove('hidden')
-        svgLight.classList.remove('hidden')
+        svgDark.classList.remove("hidden");
+        svgLight.classList.remove("hidden");
 
-        if (theme === 'autumn') {
-          svgLight.classList.remove('swap-off')
-          svgDark.classList.remove('swap-on')
+        if (theme === "autumn") {
+          svgLight.classList.remove("swap-off");
+          svgDark.classList.remove("swap-on");
 
-          svgLight.classList.add('swap-on')
-          svgDark.classList.add('swap-off')
+          svgLight.classList.add("swap-on");
+          svgDark.classList.add("swap-off");
         }
 
-        if (theme === 'dracula') {
-          svgDark.classList.remove('swap-off')
-          svgLight.classList.remove('swap-on')
+        if (theme === "dracula") {
+          svgDark.classList.remove("swap-off");
+          svgLight.classList.remove("swap-on");
 
-          svgDark.classList.add('swap-on')
-          svgLight.classList.add('swap-off')
+          svgDark.classList.add("swap-on");
+          svgLight.classList.add("swap-off");
         }
       }
     </script>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2016906683193740"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
