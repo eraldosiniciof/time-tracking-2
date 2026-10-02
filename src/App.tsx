@@ -51,7 +51,7 @@ function AppShell() {
       <header className="mb-6 flex flex-col gap-4 border-b pb-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Tempo
+            Tempo Foco
           </h1>
           <p className="mt-1 text-muted-foreground">
             Cronógrafo pessoal de foco

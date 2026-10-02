@@ -6,7 +6,7 @@
 
 ---
 
-**Project:** Tempo
+**Project:** Tempo Foco
 **Generated:** 2026-10-02 15:00:01
 **Category:** Productivity Tool
 **Design Dials:** Variance 4/10 (Balanced / Modern) | Motion 3/10 (Subtle) | Density 7/10 (Standard)
