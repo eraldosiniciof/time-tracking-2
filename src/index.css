@@ -140,3 +140,16 @@
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
+
+/* Reserva espaço estável para unidades AdSense manuais */
+.adsense-slot {
+  min-height: 90px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: color-mix(in oklab, var(--muted) 55%, transparent);
+}
+
+.adsense-slot .adsbygoogle {
+  min-height: 90px;
+}

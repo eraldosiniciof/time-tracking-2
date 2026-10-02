@@ -5,6 +5,23 @@
 export const STORAGE_DRIVER: "local" | "api" = "local";
 export const API_BASE_URL = "/api/v1";
 
+/**
+ * Google AdSense
+ * - Script + client: habilita Auto ads (ative no painel AdSense).
+ * - slots: IDs das unidades manuais (Anúncios → Por unidade).
+ *   Crie 2 unidades Display responsivas e cole os números abaixo.
+ */
+export const ADSENSE = {
+  enabled: true,
+  client: "ca-pub-2016906683193740",
+  slots: {
+    /** Banner em Registros (entre cronógrafo e histórico) */
+    records: "",
+    /** Banner em Análise (após resumo) */
+    analysis: "",
+  },
+} as const;
+
 /** Versionamento de schema (client-localstorage-schema) */
 export const STORAGE_VERSION = "v2";
 

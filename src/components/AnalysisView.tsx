@@ -19,6 +19,7 @@ import {
   entryElapsedMs,
 } from "@/lib/time";
 import { useStore } from "@/hooks/useStore";
+import { AdSenseUnit } from "@/components/AdSense";
 import { DatePeriodPicker } from "@/components/DatePeriodPicker";
 import { DayGroupsAccordion } from "@/components/DayGroupsAccordion";
 import { Button } from "@/components/ui/button";
@@ -213,6 +214,8 @@ export function AnalysisView({ onDoubleConfirm }: Props) {
           </CardContent>
         </Card>
       </div>
+
+      <AdSenseUnit slot="analysis" />
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card>

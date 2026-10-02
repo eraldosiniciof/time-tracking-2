@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import { PlayIcon } from "lucide-react";
 import { toast } from "sonner";
+import { AdSenseUnit } from "@/components/AdSense";
 import { CategoryChips } from "@/components/CategoryChips";
 import { CategoryModal } from "@/components/CategoryModal";
 import { EntryRow } from "@/components/EntryRow";
@@ -219,6 +220,8 @@ export function RecordsView({ onConfirm }: Props) {
           </div>
         </CardContent>
       </Card>
+
+      <AdSenseUnit slot="records" className="my-1" />
 
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-lg font-bold tracking-tight">Histórico</h2>
