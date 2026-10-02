@@ -1,27 +1,53 @@
-# Time Tracking 2
+# Tempo — Controle de Tempo (React + TypeScript)
 
-## Project Overview
+App de gerenciamento de tempo com telas de **Registros** e **Análise**,
+persistência em `localStorage` versionada e camada pronta para PostgreSQL.
 
-- Personal project aimed to display the focus time for each registered task.
+## Stack
 
-- The theme and tasks are stored in the browser's localStorage, so you will have your settings and records saved, even if you close the browser tab.
+- React 19 + TypeScript
+- Vite
+- localStorage (`tempo:*:v2`) com cache em memória
 
-- Note: If you clear your browser data, you will lose your records.
+## Desenvolvimento
 
-- The project was developed in a single HTML file using link tags to make it possible to use the style libraries that are being used.
+```bash
+npm install
+npm run dev
+```
 
-- The script tag is also being used for implementing the JavaScript logic.
+Build:
 
-- No event is used for time control that remains running after the task is registered. Instead, a comparison is made between the final date and the initial date when the task is finished.
+```bash
+npm run build
+npm run preview
+```
 
-- Next to the tasks, the total time for each defined category will be displayed.
+## Funcionalidades
 
-## Instructions for Use
+- Categorias pré-definidas + criação (duplo clique remove customizadas)
+- Timer: iniciar / finalizar / reiniciar contagem
+- Análise com filtros: dia, período, categoria, status, busca
+- Timer ao vivo via `ref` (sem re-render a cada segundo)
 
-- The application can be accessed from the production link on the side of this page
-- You can also download the index file and simply double-click on the file (no need to run a server to use it).
+## PostgreSQL no futuro
 
-## Used Packages
+Em `src/lib/config.ts`:
 
-- Tailwindcss
-- DaisyUI
+```ts
+export const STORAGE_DRIVER = "api";
+export const API_BASE_URL = "/api/v1";
+```
+
+Implemente REST espelhando `src/lib/storage/api.ts` (`/categories`, `/entries`, `/settings`).
+
+## Práticas Vercel React aplicadas
+
+- `async-parallel` — carga inicial com `Promise.all`
+- `client-localstorage-schema` — chaves versionadas `v2`
+- `js-cache-storage` — cache Map de localStorage
+- `rerender-use-ref-transient-values` — tick do timer via DOM/ref
+- `rerender-transitions` / `useDeferredValue` — filtros de análise
+- `bundle-dynamic-imports` + preload no hover — chunk da Análise
+- `rendering-content-visibility` — listas longas
+- imports diretos (sem barrel files de storage)

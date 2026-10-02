@@ -1,0 +1,142 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Tempo — One Dark Pro (Binaryify) + One Light companion
+ * Workbench: https://github.com/Binaryify/OneDark-Pro
+ * classic textColors: chalky/coral/malibu/green/purple/whiskey…
+ */
+:root {
+  /* One Light companion (ODP is dark-only) */
+  --background: #fafafa;
+  --foreground: #383a42;
+  --card: #ffffff;
+  --card-foreground: #383a42;
+  --popover: #ffffff;
+  --popover-foreground: #383a42;
+  --primary: #4078f2;
+  --primary-foreground: #fafafa;
+  --secondary: #e5e5e6;
+  --secondary-foreground: #383a42;
+  --muted: #e5e5e6;
+  --muted-foreground: #696c77;
+  --accent: #e5e5e6;
+  --accent-foreground: #383a42;
+  --destructive: #e45649;
+  --border: #d0d0d1;
+  --input: #c2c3c5;
+  --ring: #4078f2;
+  --live: #50a14f;
+  --live-foreground: #fafafa;
+  --radius: 0.5rem;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.dark {
+  /* One Dark Pro workbench */
+  --background: #282c34; /* editor.background / activityBar */
+  --foreground: #abb2bf; /* editor.foreground / lightWhite */
+  --card: #21252b; /* sideBar / statusBar / dropdown */
+  --card-foreground: #d7dae0; /* activityBar.foreground */
+  --popover: #21252b;
+  --popover-foreground: #abb2bf;
+  --primary: #4d78cc; /* activityBarBadge.background */
+  --primary-foreground: #f8fafd; /* activityBarBadge.foreground */
+  --secondary: #404754; /* button.background */
+  --secondary-foreground: #abb2bf;
+  --muted: #2c313a; /* list.hover / selection */
+  --muted-foreground: #7f848e; /* lightDark */
+  --accent: #2c313a;
+  --accent-foreground: #d7dae0;
+  --destructive: #e06c75; /* coral */
+  --border: #3e4452; /* panel.border / focusBorder family */
+  --input: #1d1f23; /* input.background */
+  --ring: #61afef; /* malibu / textLink */
+  --live: #98c379; /* green */
+  --live-foreground: #282c34;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-live: var(--live);
+  --color-live-foreground: var(--live-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* App layout helpers (non-component chrome) */
+.app-shell {
+  width: min(980px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+}
+
+.dial-time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.8rem, 8vw, 3.8rem);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.dial-time-compact {
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+}
+
+.mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
