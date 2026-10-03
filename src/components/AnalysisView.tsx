@@ -215,8 +215,6 @@ export function AnalysisView({ onDoubleConfirm }: Props) {
         </Card>
       </div>
 
-      <AdSenseUnit slot="analysis" />
-
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
@@ -366,6 +364,12 @@ export function AnalysisView({ onDoubleConfirm }: Props) {
           )}
         </CardContent>
       </Card>
+
+      <AdSenseUnit
+        slot="analysis"
+        ready={summary.filtered.length > 0}
+        className="mt-2"
+      />
     </section>
   );
 }

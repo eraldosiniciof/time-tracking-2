@@ -221,8 +221,6 @@ export function RecordsView({ onConfirm }: Props) {
         </CardContent>
       </Card>
 
-      <AdSenseUnit slot="records" className="my-1" />
-
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-lg font-bold tracking-tight">Histórico</h2>
         <Button
@@ -252,23 +250,27 @@ export function RecordsView({ onConfirm }: Props) {
           </CardContent>
         </Card>
       ) : (
-        <DayGroupsAccordion
-          groups={dayGroups}
-          renderGroup={(group) => (
-            <div>
-              {group.entries.map((entry) => (
-                <EntryRow
-                  key={entry.id}
-                  entry={entry}
-                  category={categoryById.get(entry.categoryId) ?? null}
-                  onStop={handleStop}
-                  onRestart={handleRestart}
-                  onDelete={handleDelete}
-                />
-              ))}
-            </div>
-          )}
-        />
+        <>
+          <DayGroupsAccordion
+            groups={dayGroups}
+            renderGroup={(group) => (
+              <div>
+                {group.entries.map((entry) => (
+                  <EntryRow
+                    key={entry.id}
+                    entry={entry}
+                    category={categoryById.get(entry.categoryId) ?? null}
+                    onStop={handleStop}
+                    onRestart={handleRestart}
+                    onDelete={handleDelete}
+                  />
+                ))}
+              </div>
+            )}
+          />
+          {/* Ads só depois de conteúdo real (política AdSense) */}
+          <AdSenseUnit slot="records" ready className="mt-4" />
+        </>
       )}
 
       <CategoryModal

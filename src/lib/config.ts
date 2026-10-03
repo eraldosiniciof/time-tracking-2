@@ -6,19 +6,20 @@ export const STORAGE_DRIVER: "local" | "api" = "local";
 export const API_BASE_URL = "/api/v1";
 
 /**
- * Google AdSense
- * - Script + client: habilita Auto ads (ative no painel AdSense).
- * - slots: IDs das unidades manuais (Anúncios → Por unidade).
- *   Crie 2 unidades Display responsivas e cole os números abaixo.
+ * Google AdSense — somente unidades manuais, com gate de conteúdo.
+ * Auto ads DESLIGADO (evita ads em telas vazias / loading / só UI).
+ * No painel AdSense: desative Auto ads; use só anúncios por unidade.
  */
 export const ADSENSE = {
   enabled: true,
+  /** Nunca injeta page-level / Auto ads */
+  autoAds: false,
+  manualAds: true,
   client: "ca-pub-2016906683193740",
   slots: {
-    /** Banner em Registros (entre cronógrafo e histórico) */
-    records: "",
-    /** Banner em Análise (após resumo) */
-    analysis: "",
+    /** Multiplex / autorelaxed (unidade existente do projeto) */
+    records: "7267638930",
+    analysis: "7267638930",
   },
 } as const;
 
