@@ -55,4 +55,4 @@ export type DaySummary = {
   totalMs: number;
 };
 
-export type AppView = "records" | "analysis" | "about" | "privacy";
+export type AppView = "records" | "analysis";
